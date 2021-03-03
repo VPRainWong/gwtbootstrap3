@@ -16,6 +16,8 @@ You can easily add GWTBootstrap3 to your project by including the library as a M
 </dependency>
 ```
 ### Final Release
+* 1.0.2 - Released on 2 March 2021.
+  * Fix jQuery vulnerability for [Visual Paradigm Online](https://online.visual-paradigm.com)
 * 1.0.1 - Released on 14 November 2019.
   * Based on Bootstrap v3.4.1
 * 1.0.0 - Released on 26 August 2019. 
