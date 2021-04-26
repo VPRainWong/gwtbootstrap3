@@ -119,6 +119,7 @@ public class JQuery {
      * @return JQuery object for chaining purposes
      */
     public native JQuery popover();
+    public native JQuery popover(com.google.gwt.core.client.JavaScriptObject option);
     /**
      * Bootstrap popover() method
      * @param method the method string

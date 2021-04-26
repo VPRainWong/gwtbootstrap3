@@ -23,6 +23,7 @@ package org.gwtbootstrap3.client.ui;
 import org.gwtbootstrap3.client.shared.js.JQuery;
 import org.gwtbootstrap3.client.ui.base.AbstractTooltip;
 
+import com.google.gwt.core.client.*;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -51,7 +52,16 @@ public class Popover extends AbstractTooltip {
     private static final String TEMPLATE = "<div class=\"popover\" role=\"tooltip\"><div class=\"arrow\"></div><h3 class=\"popover-title\"></h3><div class=\"popover-content\"></div></div>";
 
     private String content = null;
+    private boolean sanitize = true;
 
+    public static class Options extends JavaScriptObject {
+
+  	  // Overlay types always have protected, zero-arg ctors
+  	  protected Options() { }
+
+  	  public final native String setSanitize(boolean sanitize) /*-{ this.sanitize = sanitize; }-*/;
+  	}
+    
     /**
      * Creates the empty Popover
      */
@@ -145,7 +155,14 @@ public class Popover extends AbstractTooltip {
      */
     private void popover(Element e, String content) {
         e.setAttribute("data-content", content);
-        JQuery.jQuery(e).popover();
+        if (sanitize) {
+        	// default
+        	JQuery.jQuery(e).popover();
+        } else {
+        	Options options = JavaScriptObject.createObject().cast();
+        	options.setSanitize(false);
+        	JQuery.jQuery(e).popover(options);
+        }
     }
 
     /**
@@ -156,6 +173,10 @@ public class Popover extends AbstractTooltip {
         if (initialized) {
             updateString(widget.getElement(), "content", content);
         }
+    }
+    
+    public void setSanitize(boolean sanitize) {
+    	this.sanitize = sanitize;
     }
 
     /** {@inheritDoc} */
